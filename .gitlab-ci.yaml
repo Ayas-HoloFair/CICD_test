@@ -3,30 +3,40 @@ stages:
   - test
   - deploy
 
-# Define the build stage
+before_script:
+  - echo "Setting up environment"
+  - node -v
+  - npm -v
+
 build:
   stage: build
   image: node:14
   script:
+    - echo "Installing dependencies"
     - npm install
+    - echo "Building project"
     - npm run build
   artifacts:
     paths:
       - build
+  only:
+    - main
 
-# Define the test stage
 test:
   stage: test
   image: node:14
   script:
+    - echo "Running tests"
     - npm install
     - npm run test
+  only:
+    - main
 
-# Define the deploy stage
 deploy:
   stage: deploy
   image: node:14
   script:
+    - echo "Deploying application"
     - npm install -g serve
     - serve -s build
   only:
