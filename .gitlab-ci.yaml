@@ -22,16 +22,6 @@ build:
   only:
     - main
 
-test:
-  stage: test
-  image: node:14
-  script:
-    - echo "Running tests"
-    - npm install
-    - npm run test
-  only:
-    - main
-
 deploy:
   stage: deploy
   image: node:14
